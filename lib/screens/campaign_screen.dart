@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rah_crm_project/components/menu_button.dart';
-import 'package:rah_crm_project/models/gsheet_api.dart';
 import 'package:rah_crm_project/screens/welcome_screen.dart';
 import 'package:rah_crm_project/screens/campaign_list_screen.dart';
 import 'package:rah_crm_project/screens/blank_screen.dart';
@@ -30,8 +29,11 @@ class _CampaignScreenState extends State<CampaignScreen> {
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 40),
             child: Row(
               children: [
-                Container(
-                  child: Image.asset('images/RAH_logo_light.png'),
+                Hero(
+                  tag: 'rah_logo',
+                  child: Container(
+                    child: Image.asset('images/RAH_logo_light.png'),
+                  ),
                 ),
               ],
             ),
@@ -68,7 +70,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
                     ),
                   ),
                   MenuButton(
-                    title: 'Customer List',
+                    title: 'Advertisement(Coming soon)',
                     callList: () {},
                   ),
                   SizedBox(
@@ -79,10 +81,8 @@ class _CampaignScreenState extends State<CampaignScreen> {
                     ),
                   ),
                   MenuButton(
-                    title: 'History',
-                    callList: () async {
-                      UserSheetsApi.getAllData();
-                    },
+                    title: 'Customer(Coming Soon)',
+                    callList: () {},
                   ),
                 ],
               ),

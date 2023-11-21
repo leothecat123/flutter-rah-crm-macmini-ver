@@ -1,3 +1,5 @@
+import 'package:rah_crm_project/models/gsheet_api.dart';
+
 class Project {
   bool selection;
   final String projectName;
@@ -16,5 +18,9 @@ class Project {
 
   void toggleDone() {
     selection = !selection;
+  }
+
+  void removeProject(adName) {
+    UserSheetsApi.deleteByAdNumber(adName);
   }
 }

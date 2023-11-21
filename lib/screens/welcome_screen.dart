@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:rah_crm_project/constants.dart';
 import 'package:rah_crm_project/screens/campaign_screen.dart';
@@ -9,7 +10,36 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    animation = ColorTween(begin: Colors.black, end: Color(0xfff4f4f3))
+        .animate(controller);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +48,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: [
           Expanded(
             flex: 2,
-            child: Container(
-              color: Color(0xfff4f4f3),
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.6), BlendMode.lighten),
-                child: Image.asset('images/RAH_logo.png'),
+            child: Hero(
+              tag: 'rah_logo',
+              child: Container(
+                color: animation.value,
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.6), BlendMode.lighten),
+                  child: Image.asset('images/RAH_logo.png'),
+                ),
               ),
             ),
           ),
@@ -36,13 +69,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Welcome!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'Welcome!',
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                          ),
+                          speed: Duration(milliseconds: 200),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 5),
                     Text(

@@ -15,3 +15,15 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(5.0)),
   ),
 );
+
+const kCampaignListTitleStyle = TextStyle(
+  fontWeight: FontWeight.w700,
+  color: Color(0xff846A47),
+  letterSpacing: 0.8,
+);
+
+const kCampaignListButtonStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.6,
+);

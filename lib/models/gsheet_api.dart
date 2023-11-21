@@ -58,6 +58,13 @@ class UserSheetsApi {
 
   static Future getAllData() async {
     final allData = await _userSheet!.values.allRows();
-    print(allData);
+    return (allData);
+  }
+
+  static Future deleteByAdNumber(String adName) async {
+    if (_userSheet == null) return;
+    final index = await _userSheet!.values.rowIndexOf(adName);
+    if (index == -1) return false;
+    return _userSheet!.deleteRow(index);
   }
 }

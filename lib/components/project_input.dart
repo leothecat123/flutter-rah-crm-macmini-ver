@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class ProjectInput extends StatelessWidget {
   final String fieldTitle;
   final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
 
-  ProjectInput({required this.fieldTitle, required this.controller});
+  ProjectInput(
+      {required this.fieldTitle, required this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ProjectInput extends StatelessWidget {
             ),
             Expanded(
               flex: 3,
-              child: TextField(
+              child: TextFormField(
                 controller: controller,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -37,6 +39,7 @@ class ProjectInput extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Colors.black54, width: 3))),
                 textAlign: TextAlign.center,
+                validator: validator,
                 onChanged: (newText) {},
               ),
             ),
