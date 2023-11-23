@@ -9,8 +9,9 @@ class UserFields {
   static final String listId = 'table_list_id';
   static final String rawId = 'table_raw_id';
   static final String p1Id = 'table_p1_id';
-  static final String row = 'row';
   static final String creationDate = 'creation_date';
+  static final String action = 'action';
+  static final String status = 'status';
 
   static List<String> getFields() => [
         adName,
@@ -23,8 +24,9 @@ class UserFields {
         listId,
         rawId,
         p1Id,
-        row,
         creationDate,
+        action,
+        status,
       ];
 }
 
@@ -39,22 +41,25 @@ class User {
   final String? listId;
   final String? rawId;
   final String? p1Id;
-  final int row;
   final String? creationDate;
+  final String? action;
+  final String? status;
 
-  User(
-      {required this.adName,
-      required this.adNumber,
-      this.adSectId,
-      this.saleType,
-      this.labelId,
-      this.sectId,
-      required this.listName,
-      this.listId,
-      this.rawId,
-      this.p1Id,
-      required this.row,
-      this.creationDate});
+  User({
+    required this.adName,
+    required this.adNumber,
+    this.adSectId,
+    this.saleType,
+    this.labelId,
+    this.sectId,
+    required this.listName,
+    this.listId,
+    this.rawId,
+    this.p1Id,
+    this.creationDate,
+    this.action,
+    this.status,
+  });
 
   Map<String, dynamic> toJson() => {
         UserFields.adName: adName,
@@ -67,7 +72,8 @@ class User {
         UserFields.listId: listId,
         UserFields.rawId: rawId,
         UserFields.p1Id: p1Id,
-        UserFields.row: row,
         UserFields.creationDate: creationDate,
+        UserFields.action: action,
+        UserFields.status: status,
       };
 }

@@ -21,6 +21,6 @@ class Project {
   }
 
   void removeProject(adName) {
-    UserSheetsApi.deleteByAdNumber(adName);
+    UserSheetsApi.deleteRequest(adName);
   }
 }

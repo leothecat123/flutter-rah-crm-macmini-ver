@@ -21,11 +21,12 @@ class UserSheetsApi {
   static final _spreadsheetId = '1C5kiEltA8vzV086_p_scQcY2_BZ7BnI3sHXpiKEj7Gc';
   static final _gsheets = GSheets(_credentials);
   static Worksheet? _userSheet;
+  static Worksheet? _readSheet;
 
   static Future init() async {
     try {
       final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
-      _userSheet = await _getWorkSheet(spreadsheet, title: 'Copy of ad_list');
+      _userSheet = await _getWorkSheet(spreadsheet, title: 'edit_request');
 
       final firstRow = UserFields.getFields();
       _userSheet!.values.insertRow(1, firstRow);
@@ -39,10 +40,36 @@ class UserSheetsApi {
     required String title,
   }) async {
     try {
-      return await spreadsheet.addWorksheet('Copy of ad_list');
+      return await spreadsheet.addWorksheet('edit_request');
     } catch (e) {
       return spreadsheet.worksheetByTitle(title)!;
     }
+  }
+
+  //read list is different from insert / delete request sheet
+  static Future readinit() async {
+    try {
+      final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
+      _readSheet = await _getReadWorkSheet(spreadsheet, title: 'ad_list');
+    } catch (e) {
+      print('Init Error: $e');
+    }
+  }
+
+  static Future<Worksheet> _getReadWorkSheet(
+    Spreadsheet spreadsheet, {
+    required String title,
+  }) async {
+    try {
+      return await spreadsheet.addWorksheet('ad_list');
+    } catch (e) {
+      return spreadsheet.worksheetByTitle(title)!;
+    }
+  }
+
+  static Future readGetAllData() async {
+    final allData = await _readSheet!.values.allRows();
+    return (allData);
   }
 
   static Future insert(List<Map<String, dynamic>> rowList) async {
@@ -50,11 +77,16 @@ class UserSheetsApi {
     _userSheet!.values.map.appendRows(rowList);
   }
 
-  static Future<int> getRowCount() async {
-    if (_userSheet == null) return 0;
-    final lastRow = await _userSheet!.values.lastRow();
-    return lastRow == null ? 0 : int.tryParse(lastRow[10]) ?? 0;
+  static Future deleteRequest(List<Map<String, dynamic>> rowList) async {
+    if (_userSheet == null) return;
+    _userSheet!.values.map.appendRows(rowList);
   }
+
+  // static Future<int> getRowCount() async {
+  //   if (_userSheet == null) return 0;
+  //   final lastRow = await _userSheet!.values.lastRow();
+  //   return lastRow == null ? 0 : int.tryParse(lastRow[10]) ?? 0;
+  // }
 
   static Future getAllData() async {
     final allData = await _userSheet!.values.allRows();

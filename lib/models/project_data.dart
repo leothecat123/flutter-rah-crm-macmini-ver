@@ -32,7 +32,7 @@ class ProjectData extends ChangeNotifier {
       String ad_name = data[i][0];
       String project_id = data[i][1];
       String project_category = data[i][6];
-      String project_date = data[i][11];
+      String project_date = data[i][10];
       Project new_project = Project(
         projectName: ad_name,
         projectID: project_id,

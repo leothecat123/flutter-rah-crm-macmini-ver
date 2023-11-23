@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pop_up_button.dart';
 
 class TaskTile extends StatelessWidget {
   final bool isChecked;
@@ -112,18 +113,32 @@ class TaskTile extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Confirmation'),
-                        content: Text('Are you sure to delete this campaign?'),
-                        actions: [
-                          TextButton(
-                            onPressed: delectBoxCallback,
-                            child: Text('Delete'),
+                        titlePadding: EdgeInsets.all(30),
+                        contentPadding: EdgeInsets.all(30),
+                        buttonPadding:
+                            EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+                        backgroundColor: Color(0xfff6f6f5),
+                        title: Text(
+                          'Confirmation',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        content: Text(
+                          'Are you sure to delete this campaign?',
+                          style: TextStyle(
+                            letterSpacing: 0.8,
+                            color: Colors.grey,
                           ),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancel')),
+                        ),
+                        actions: [
+                          popUpButton(
+                              buttonText: 'Delete',
+                              buttonCallBack: delectBoxCallback),
+                          popUpButton(
+                            buttonText: 'Cancel',
+                            buttonCallBack: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
                         ],
                       );
                     },

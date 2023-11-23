@@ -98,7 +98,7 @@ class AddProjectScreen extends StatelessWidget {
                   final form = formKey.currentState!;
                   final isValid = form.validate();
                   if (isValid) {
-                    final rowCount = await UserSheetsApi.getRowCount();
+                    // final rowCount = await UserSheetsApi.getRowCount();
                     final user = User(
                       adName: nameController.text,
                       adNumber: idController.text,
@@ -110,8 +110,9 @@ class AddProjectScreen extends StatelessWidget {
                       listId: '',
                       rawId: '',
                       p1Id: '',
-                      row: rowCount + 1,
                       creationDate: '\'${dateController.text}',
+                      action: 'add',
+                      status: '',
                     );
                     await UserSheetsApi.insert([user.toJson()]);
                     Navigator.pop(context);
